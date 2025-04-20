@@ -35,14 +35,12 @@ void hc_encode_board(const HCBoard* b, uint8_t out[160][19][19]) {
     for (int y = 0; y < 19; ++y) {
         for (int x = 0; x < 19; ++x) {
             uint8_t code = b->grid[y][x];
-            if (code == 0) continue;
-            int player = code >> 4;
-            int type = code & 15;
-            int plane = (player - 1) * 16 + type;
-            out[plane][y][x] = 1;
+            if (code && code < 128)
+                out[code][y][x] = 1;
         }
     }
-    out[112 + (b->current_player - 1)][0][0] = 1;  // current player plane
+    if (b->current_player >= 1 && b->current_player <= 7)
+        out[127 + b->current_player][0][0] = 1;
 }
 
 int hc_check_terminal(HCBoard* b, int8_t* out_winner) {

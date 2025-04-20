@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include "heptachess_simulate.h"
 
-#define MAX_THREADS 16
+#define MAX_THREADS 64
 
 typedef struct {
     int thread_id;

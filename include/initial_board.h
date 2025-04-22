@@ -1,4 +1,3 @@
-// initial_board.h
 #ifndef INITIAL_BOARD_H
 #define INITIAL_BOARD_H
 

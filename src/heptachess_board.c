@@ -1,4 +1,3 @@
-// heptachess_board.c — implementation of board logic
 #include "heptachess_board.h"
 #include <string.h>
 

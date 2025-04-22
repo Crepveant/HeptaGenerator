@@ -1,4 +1,3 @@
-// heptachess_board.h — core board structure and operations
 #ifndef HEPTACHESS_BOARD_H
 #define HEPTACHESS_BOARD_H
 

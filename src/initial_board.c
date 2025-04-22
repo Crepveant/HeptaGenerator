@@ -1,4 +1,3 @@
-// initial_board.c — starting position for Heptachess
 #include <stdint.h>
 #include "heptachess_board.h"
 

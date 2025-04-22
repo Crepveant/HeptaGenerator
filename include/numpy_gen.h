@@ -1,6 +1,5 @@
-// heptachess_npy.h — lightweight npy writer for training data
-#ifndef HEPTACHESS_NPY_H
-#define HEPTACHESS_NPY_H
+#ifndef NUMPY_GEN_H
+#define NUMPY_GEN_H
 
 #include <stdio.h>
 #include <stdint.h>

@@ -1,8 +1,8 @@
-// heptachess_simulate.c — full game simulation with elimination & domination
 #include "heptachess_board.h"
 #include "heptachess_moves.h"
-#include "heptachess_npy.h"
-#include "heptachess_mcts.h"
+#include "numpy_gen.h"
+#include "mcts.h"
+#include "zobrist.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -12,9 +12,10 @@
 #define MAX_MOVES 512
 #define PIECE_MARSHAL 1
 
-int simulate_game(const char* prefix) {
+int simulate_game(const char* prefix, int sims_per_move) {
     srand(time(NULL));
-
+    init_zobrist();
+    fflush(stdout);
     HCBoard board;
     hc_board_init(&board);
 
@@ -52,7 +53,15 @@ int simulate_game(const char* prefix) {
             board.current_player = (board.current_player % 7) + 1;
             continue;
         }
-        HCMove mv = hc_mcts_select(&board, 10);
+        HCMove mv = hc_mcts_select(&board, sims_per_move);
+
+        /*printf("Step %3d | Player %d | Move %2d,%2d -> %2d,%2d | capture=%d\n",
+            step,
+            board.current_player,
+            mv.fy, mv.fx,
+            mv.ty, mv.tx,
+            mv.is_capture);
+        fflush(stdout);*/
 
         // record state
         hc_encode_board(&board, states[step]);
@@ -63,7 +72,11 @@ int simulate_game(const char* prefix) {
         moves[step][4] = mv.is_capture;
         players[step] = board.current_player;
 
-        uint8_t src = board.grid[mv.fy][mv.fx];
+        if (mv.fy == 0 && mv.fx == 0 && mv.ty == 0 && mv.tx == 0 && !mv.is_capture) {
+            fprintf(stderr, "⚠️ MCTS returned dummy move. Step = %d\n", step);
+        }        
+
+        // uint8_t src = board.grid[mv.fy][mv.fx]; //unused
         uint8_t dst = board.grid[mv.ty][mv.tx];
         int attacker = board.current_player;
         int victim = (dst >> 4);

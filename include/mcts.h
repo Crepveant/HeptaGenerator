@@ -1,5 +1,5 @@
-#ifndef HEPTACHESS_MCTS_H
-#define HEPTACHESS_MCTS_H
+#ifndef MCTS_H
+#define MCTS_H
 
 #include "heptachess_board.h"
 #include "heptachess_moves.h"

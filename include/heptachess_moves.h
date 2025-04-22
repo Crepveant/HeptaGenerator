@@ -1,4 +1,3 @@
-// heptachess_moves.h — core move generation logic (C version)
 #ifndef HEPTACHESS_MOVES_H
 #define HEPTACHESS_MOVES_H
 

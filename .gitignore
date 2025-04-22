@@ -51,6 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-heptachess
+heptagenerator
 .DS_Store
-outdir/
+selfplay_data/

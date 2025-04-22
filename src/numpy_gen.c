@@ -1,5 +1,4 @@
-// heptachess_npy.c — writes NumPy .npy files (v1.0) from C arrays
-#include "heptachess_npy.h"
+#include "numpy_gen.h"
 
 static void write_header(FILE* f, const char* dtype, const char* shape_str) {
     // Build header dictionary

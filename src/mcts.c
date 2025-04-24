@@ -54,6 +54,16 @@ static void add_hash(HashHistory* h, uint64_t hash) {
     }
 }
 
+static void free_node(MCTSNode* node) {
+    if (!node) return;
+    for (int i = 0; i < node->children_count; ++i) {
+        free_node(node->children[i]);
+    }
+    free(node->children);
+    free(node->priors);
+    free(node);
+}
+
 /*static double rand_dirichlet(double alpha) {
     // Gamma(alpha, 1) using Marsaglia and Tsang’s method
     double d = alpha - 1.0 / 3.0;
@@ -262,6 +272,7 @@ static HCMove mcts_search(const HCBoard* root_state, int sims) {
     }
 
     HCMove best_move = best ? best->move : (HCMove){0};
+    free_node(root);
     return best_move;
 }
 

@@ -5,31 +5,35 @@
 #include "heptachess_moves.h"
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-#define MAX_COUNTRIES 8  // player 0–7 (0 = empty)
+#define MAX_COUNTRIES 8
 
-// Encoded piece: high 4 bits = player (1–7), low 4 bits = piece code (1–11)
+/** Encoded piece grid and side to move. */
 typedef struct {
-    uint8_t grid[SIZE][SIZE];     // 19×19 grid
-    uint8_t current_player;       // 1–7
+	uint8_t grid [SIZE][SIZE];
+	uint8_t current_player;
 } HCBoard;
 
-// Initialize starting board layout
-void hc_board_init(HCBoard* b);
+/** Initialize the standard starting board layout. */
+void hc_board_init(HCBoard *b);
 
-// Apply a move (must be legal), advance player
-void hc_apply_move(HCBoard* b, const HCMove* m);
+/** Apply a legal move and advance the side to move. */
+void hc_apply_move(HCBoard *b, HCMove const *m);
 
-// Transfer ownership of all pieces from `loser` to `winner`
-void hc_transfer_country(HCBoard* b, uint8_t loser, uint8_t winner);
+/** Transfer ownership of all remaining pieces from loser to winner. */
+void hc_transfer_country(HCBoard *b, uint8_t loser, uint8_t winner);
 
-// Copy board into encoded 160x19x19 tensor for NN input
-void hc_encode_board(const HCBoard* b, uint8_t out[160][19][19]);
+/** Copy the board into a zero-initialized 160x19x19 one-hot tensor. */
+void hc_encode_board(HCBoard const *b, uint8_t out [160][19][19]);
 
-// Check terminal condition (1 survivor or domination), return winner if any
-int hc_check_terminal(HCBoard* b, int8_t* out_winner);
+/** Set board features in an already zeroed 160x19x19 one-hot tensor. */
+void hc_encode_board_features(HCBoard const *b, uint8_t out [160][19][19]);
+
+/** Return nonzero and write the surviving winner when the board is terminal. */
+int  hc_check_terminal(HCBoard const *b, int8_t *out_winner);
 
 #ifdef __cplusplus
 }

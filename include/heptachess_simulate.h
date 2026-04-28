@@ -2,12 +2,12 @@
 #define HEPTACHESS_SIMULATE_H
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-// Simulate one game and export output to prefix_*.npy
-// Returns number of steps played
-int simulate_game(const char* prefix, int sims_per_move);
+/** Simulate one game and export output to prefix_*.npy. */
+int simulate_game(char const *prefix, int search_budget);
 
 #ifdef __cplusplus
 }

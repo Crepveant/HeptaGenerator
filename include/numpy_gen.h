@@ -7,17 +7,21 @@
 #include <string.h>
 
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-// write .npy file for uint8 4D array (e.g. states)
-void write_npy_4d(const char* filepath, int N, int C, int H, int W, const uint8_t* data);
+/** Write a NumPy .npy file for a contiguous uint8 3D array. */
+void write_npy_3d_u8(char const *filepath, int N, int H, int W, uint8_t const *data);
 
-// write .npy file for int16 2D array (e.g. moves)
-void write_npy_2d(const char* filepath, int N, int D, const int16_t* data);
+/** Write a NumPy .npy file for a contiguous uint8 4D array. */
+void write_npy_4d_u8(char const *filepath, int N, int C, int H, int W, uint8_t const *data);
 
-// write .npy file for int8 1D array (e.g. players/winner)
-void write_npy_1d(const char* filepath, int N, const int8_t* data);
+/** Write a NumPy .npy file for a contiguous int16 2D array. */
+void write_npy_2d(char const *filepath, int N, int D, int16_t const *data);
+
+/** Write a NumPy .npy file for a contiguous int8 1D array. */
+void write_npy_1d(char const *filepath, int N, int8_t const *data);
 
 #ifdef __cplusplus
 }

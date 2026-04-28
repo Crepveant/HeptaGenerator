@@ -52,5 +52,7 @@ Mkfile.old
 dkms.conf
 
 heptagenerator
+.xmake/
+build/
 .DS_Store
 selfplay_data/
